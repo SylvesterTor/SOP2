@@ -1,0 +1,15 @@
+D:\dokumenter\SOP\bin\Debug\net6.0\SOP.exe
+D:\dokumenter\SOP\bin\Debug\net6.0\SOP.deps.json
+D:\dokumenter\SOP\bin\Debug\net6.0\SOP.runtimeconfig.json
+D:\dokumenter\SOP\bin\Debug\net6.0\SOP.dll
+D:\dokumenter\SOP\bin\Debug\net6.0\SOP.pdb
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.csproj.AssemblyReference.cache
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.GeneratedMSBuildEditorConfig.editorconfig
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.AssemblyInfoInputs.cache
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.AssemblyInfo.cs
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.csproj.CoreCompileInputs.cache
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.dll
+D:\dokumenter\SOP\obj\Debug\net6.0\refint\SOP.dll
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.pdb
+D:\dokumenter\SOP\obj\Debug\net6.0\SOP.genruntimeconfig.cache
+D:\dokumenter\SOP\obj\Debug\net6.0\ref\SOP.dll
