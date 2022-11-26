@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dokumenter\\SOP\\SOP.csproj": {}
+    "D:\\dokumenter\\SOP2\\SOP.csproj": {}
   },
   "projects": {
-    "D:\\dokumenter\\SOP\\SOP.csproj": {
+    "D:\\dokumenter\\SOP2\\SOP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dokumenter\\SOP\\SOP.csproj",
+        "projectUniqueName": "D:\\dokumenter\\SOP2\\SOP.csproj",
         "projectName": "SOP",
-        "projectPath": "D:\\dokumenter\\SOP\\SOP.csproj",
+        "projectPath": "D:\\dokumenter\\SOP2\\SOP.csproj",
         "packagesPath": "C:\\Users\\Sylve\\.nuget\\packages\\",
-        "outputPath": "D:\\dokumenter\\SOP\\obj\\",
+        "outputPath": "D:\\dokumenter\\SOP2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sylve\\AppData\\Roaming\\NuGet\\NuGet.Config"
