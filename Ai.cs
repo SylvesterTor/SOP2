@@ -15,7 +15,7 @@ class Ai
             else
             {
                 board.add_move(i, "2");
-                score = minimax(board, 2, "2",i);
+                score = minimax(board, 4, "2",i);
                 Console.Write("move:  "+i);
                 Console.WriteLine("  score: "+score);
                 //board.display_board(); 
@@ -33,9 +33,9 @@ class Ai
 
     public float minimax(Board board, int depth, string player, int move)
     {
-        if(board.check_game(move, "2",false)==1){
+        if(board.check_game_2_0("2")==1){
             return 100*depth;
-        }else if(board.check_game(move, "1",false)==1){
+        }else if(board.check_game_2_0("1")==1){
             return -1;
         }
         float score;
