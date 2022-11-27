@@ -1,13 +1,20 @@
+
+using System;
+using System.Diagnostics;
+using System.Threading;
+
 class New_ai
 {
+    Stopwatch stopwatch = new Stopwatch();
     public int make_move(Board game, int x) //controls what move the AI is to make
     {
+        stopwatch.Start();
         int best_move = 0; //best move
         float score; //score of a given move
         float best_score = -100000; //Best score, maximizer optimmaly starts at negtive infinity 
         int rand;
         Random rnd = new Random();
-        
+
         for (int i = 0; i < game.dimensions[0]; i++) //for all columns in game
         {
             if (game.check_move(i)) //if column is full skip to next one
@@ -30,7 +37,7 @@ class New_ai
                 }
                 else if (score == best_score)
                 {
-                    //kinda randomize if scores are equal, not truly thoudh. Kinda sucks
+                    //kinda randomize if scores are equal, not truly thoudh. Kinda sucksS
                     rand = rnd.Next(1, 3);
                     if (rand == 1)
                     {
@@ -40,6 +47,10 @@ class New_ai
                 }
             }
         }
+        stopwatch.Stop();
+        TimeSpan ts = stopwatch.Elapsed;
+        Console.WriteLine("Elapsed Time is {0:00}:{1:00}:{2:00}.{3}",
+                        ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
         return best_move;
     }
 
@@ -48,7 +59,7 @@ class New_ai
         //If depth has reached zero, or the state of the game is a leave on gametree, then evalute the current game_state
         if (depth == 0 || isTerminal)
         {
-            return eval_table(game_board, move, isTerminal) * depth;
+            return eval_table(game_board, move, isTerminal) * depth+1;
         }
 
         if (player == "1")
@@ -72,13 +83,15 @@ class New_ai
             float best_score = -100000f;
             for (int i = 0; i < game_board.dimensions[0]; i++)
             {
+                float score;
                 if (game_board.check_move(i))
                 {
                     continue;
                 }
                 game_board.add_move(i, "2");
                 isTerminal = 1 == game_board.check_game_2_0("2");
-                best_score = Math.Max(minimax(game_board, i, depth - 1, "1", isTerminal), best_score);
+                score=minimax(game_board, i, depth - 1, "1", isTerminal);
+                best_score = Math.Max(score, best_score);
                 game_board.remove_move(i, "2");
             }
             return best_score;

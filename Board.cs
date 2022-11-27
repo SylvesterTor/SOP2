@@ -18,7 +18,6 @@ class Board
         {
             for (int k = 0; k < y; k++)
             {
-                Console.WriteLine(""+i+" "+k);
                 game_board[i, k] = " ";
             }
         }
@@ -86,15 +85,17 @@ class Board
     public void display_board()
     {
         string space = "|";
+        string UNDERLINE = "\x1B[4m";
+        string RESET = "\x1B[0m";
         Console.Write(" " + space);
         for (int i = 0; i < game_board.GetLength(0); i++)
         {
             Console.Write(i + space);
         }
         Console.WriteLine();
-        for (int i = dimensions[1]-1; i >= 0; i--) //reverse the columns to simulate a real game of connect four. Otherwise it would be from the top to bottom
+        for (int i = dimensions[1] - 1; i >= 0; i--) //reverse the columns to simulate a real game of connect four. Otherwise it would be from the top to bottom
         {
-            Console.Write(i + space);
+            Console.Write(UNDERLINE+i+ space+RESET );
             for (int j = 0; j < dimensions[0]; j++)
             {
 
@@ -110,8 +111,6 @@ class Board
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
-                string UNDERLINE = "\x1B[4m";
-                string RESET = "\x1B[0m";
                 Console.Write(UNDERLINE + " ");
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write(space + RESET);

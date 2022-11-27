@@ -10,21 +10,11 @@ public class Connectfour
         int move;
         while (true)
         {
-            game.display_board();
-
-            Console.WriteLine("player 1 to move: ");
-            move = Convert.ToInt32(Console.ReadLine());
-            game.add_move(move, "1");
-            if (game.check_game_2_0("1") == 1)
-            {
-                Console.WriteLine("player 1 wins");
-                break;
-            }
 
             game.display_board();
 
             Console.WriteLine("AI to move: ");
-            move = ai.make_move(game, 7);
+            move = ai.make_move(game, 4);
 
             // AI or human oponent.
             //Console.WriteLine("Player 2 to move: ");
@@ -34,6 +24,16 @@ public class Connectfour
             if (game.check_game_2_0("2") == 1)
             {
                 Console.WriteLine("Player 2 wins");
+                break;
+            }
+            game.display_board();
+
+            Console.WriteLine("player 1 to move: ");
+            move = Convert.ToInt32(Console.ReadLine());
+            game.add_move(move, "1");
+            if (game.check_game_2_0("1") == 1)
+            {
+                Console.WriteLine("player 1 wins");
                 break;
             }
         }
