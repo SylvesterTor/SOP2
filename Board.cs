@@ -2,8 +2,7 @@ class Board
 {
     public string[,] game_board;
     public int[] dimensions = new int[2];
-    public List<int[]> player_1_moves;
-    public List<int[]> player_2_moves;
+
     public List<int> columns = new List<int>();
 
     public Board(int x, int y) //create board
@@ -198,9 +197,8 @@ class Board
         }
         return 0;
     }
-    public void display_board_2(string[,] board)
+    public void display_board_2(string[,] board)//used to display copies of a game_board
     {
-        Console.WriteLine("he");
         string space = " ";
         Console.Write(" " + space);
         for (int i = 0; i < board.GetLength(0); i++)
@@ -220,20 +218,25 @@ class Board
     }
 
 
-
+    //used to analyze 
     public float analyze_board()
     {
-        float score = 0f;
-        string[] pieces = new string[4];
-        for (int i = 0; i < dimensions[1]; i++)
+        float score = 0f; //running score
+        string[] pieces = new string[4]; //creates an array for storing windows of four items. Used to store 4 game_pieces in a row
+        
+        //check horizontally
+        for (int i = 0; i < dimensions[1]; i++) 
         {
             for (int k = 0; k < dimensions[0] - 3; k++)
             {
+                //add the four consecetive game_spots to the array
+                //Makes it possible to analyze the four spots
                 pieces[0] = game_board[i, k];
                 pieces[1] = game_board[i, k + 1];
                 pieces[2] = game_board[i, k + 2];
                 pieces[3] = game_board[i, k + 3];
-                score +=score_window(pieces);
+                //score a given window of four game spots
+                score += score_window(pieces);
             }
         }
         // check diagonal right up
@@ -282,18 +285,19 @@ class Board
         int player_1;
         int neutral_pieces;
         float score = 0;
-        player_2 = pieces.Count(s => s == "2");
-        player_1 = pieces.Count(s => s == "1");
-        neutral_pieces = pieces.Count(s => s == " ");
-        if (player_2 == 3 && player_1 == 0)
+        player_2 = pieces.Count(s => s == "2"); //count player 2 pieces in window
+        player_1 = pieces.Count(s => s == "1"); //count player 1 pieces in window
+        neutral_pieces = pieces.Count(s => s == " "); //count neutral pieces in window
+
+        if (player_2 == 3 && player_1 == 0) //if there are 3 player 2 pieces and none player 1 pices add 9 to score
         {
             score += 9;
         }
-        else if (player_2 == 2 && player_1 == 0)
+        else if (player_2 == 2 && player_1 == 0) //if there are 2 player 2 pieces and none player 1 pices add 3 to score
         {
             score += 3;
         }
-        else if (player_2 == 1 && player_1 == 0)
+        else if (player_2 == 1 && player_1 == 0)//if there are 1 player 2 pieces and none player 1 pices add 1 to score
         {
             score += 1;
         }

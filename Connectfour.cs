@@ -5,15 +5,27 @@ public class Connectfour
     static public void Main()
     {
         Board game = new Board(7, 7);
-        
         New_ai ai = new New_ai();
+        Console.WriteLine("Choose depth: 1-6");
+        int depth = Convert.ToInt32(Console.ReadLine());
         //Ai ai= new Ai();
         int move;
         while (true)
         {
-                        game.display_board();
+            game.display_board();
+
+            Console.WriteLine("player 1 to move: ");
+            move = Convert.ToInt32(Console.ReadLine());
+            game.add_move(move, "1");
+            if (game.check_game_2_0("1") == 1)
+            {
+                Console.WriteLine("player 1 wins");
+                break;
+            }
+            
+            game.display_board();
             Console.WriteLine("AI to move: ");
-            move = ai.make_move(game, 4);
+            move = ai.make_move(game, depth);
 
             // AI or human oponent.
             //Console.WriteLine("Player 2 to move: ");
@@ -27,18 +39,6 @@ public class Connectfour
                 Console.ForegroundColor = ConsoleColor.White;
                 break;
             }
-            
-            game.display_board();
-
-            Console.WriteLine("player 1 to move: ");
-            move = Convert.ToInt32(Console.ReadLine());
-            game.add_move(move, "1");
-            if (game.check_game_2_0("1") == 1)
-            {
-                Console.WriteLine("player 1 wins");
-                break;
-            }
-
         }
         game.display_board();
         Console.ReadLine();
