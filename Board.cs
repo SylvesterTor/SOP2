@@ -5,6 +5,7 @@ class Board
     public List<int[]> player_1_moves;
     public List<int[]> player_2_moves;
     public List<int> columns = new List<int>();
+
     public Board(int x, int y) //create board
     {
         for (int o = 0; o < x; o++)
@@ -22,6 +23,7 @@ class Board
             }
         }
     }
+
     /*
     public Board(int x, int y) //create board
     {
@@ -39,7 +41,7 @@ class Board
         {
             for (int k = 0; k < y; k++)
             {
-                game_board[i, k] = "0";
+                game_board[i, k] = " ";
             }
         }
         game_board[0, 0] = "2";
@@ -95,13 +97,13 @@ class Board
         Console.WriteLine();
         for (int i = dimensions[1] - 1; i >= 0; i--) //reverse the columns to simulate a real game of connect four. Otherwise it would be from the top to bottom
         {
-            Console.Write(UNDERLINE+i+ space+RESET );
+            Console.Write(UNDERLINE + i + space + RESET);
             for (int j = 0; j < dimensions[0]; j++)
             {
 
                 if (game_board[i, j] == "1")
                 {
-                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.BackgroundColor = ConsoleColor.Blue;
                 }
                 else if (game_board[i, j] == "2")
                 {
@@ -217,146 +219,96 @@ class Board
         }
     }
 
-    /* bad non functional check the game state. Above is better
-        public int check_game(int move, string player, Boolean thing)
+
+
+    public float analyze_board()
+    {
+        float score = 0f;
+        string[] pieces = new string[4];
+        for (int i = 0; i < dimensions[1]; i++)
         {
-            int column_height = columns[move];
-            int player_int = Int32.Parse(player);
-            Boolean count = true;
-            if (column_height >= 4) //straight down
+            for (int k = 0; k < dimensions[0] - 3; k++)
             {
-                count = true;
-                for (int i = 2; i < 5; i++)
-                {
-                    if (game_board[columns[move] - i, move] != player)
-                    {
-                        count = false;
-                    }
-                }
-                if (count)
-                {
-                    if (thing)
-                    {
-                        Console.WriteLine("winner 1");
-                    }
-                    return 1;
-                }
+                pieces[0] = game_board[i, k];
+                pieces[1] = game_board[i, k + 1];
+                pieces[2] = game_board[i, k + 2];
+                pieces[3] = game_board[i, k + 3];
+                score +=score_window(pieces);
             }
-
-            if (column_height >= 4 && move >= 3) //down and left
+        }
+        // check diagonal right up
+        for (int i = 0; i < dimensions[1] - 3; i++)
+        {
+            for (int k = 0; k < dimensions[0] - 3; k++)
             {
-                count = true;
-                for (int i = 1; i < 4; i++)
-                {
-                    if (game_board[columns[move] - i - 1, move - i] != player)
-                    { count = false; }
-                }
-                if (count)
-                {
-                    if (thing)
-                    {
-                        Console.WriteLine("winner 2");
-                    }
-                    return 1;
-                }
+                pieces[0] = game_board[i, k];
+                pieces[1] = game_board[i + 1, k + 1];
+                pieces[2] = game_board[i + 2, k + 2];
+                pieces[3] = game_board[i + 3, k + 3];
+                score += score_window(pieces);
             }
-
-            if (column_height >= 4 && move <= dimensions[1] - 4) //down and right
+        }
+        // check diagonal right down
+        for (int i = dimensions[1] - 1; i > 2; i--)
+        {
+            for (int k = 0; k < dimensions[0] - 3; k++)
             {
-                for (int i = 1; i < 4; i++)
-                {
-                    if (game_board[columns[move] - i - 1, move + i] != player)
-                    {
-                        count = false;
-                    }
-                }
-                if (count)
-                {
-                    if (thing)
-                    {
-                        Console.WriteLine("winner 3");
-                    }
-                    return 1;
-                }
+                pieces[0] = game_board[i, k];
+                pieces[1] = game_board[i - 1, k + 1];
+                pieces[2] = game_board[i - 2, k + 2];
+                pieces[3] = game_board[i - 3, k + 3];
+                score += score_window(pieces);
             }
-
-            if (column_height < dimensions[0] - 2 && move <= dimensions[1] - 4) //up n right
+        }
+        // check vertical
+        for (int i = 0; i < dimensions[1] - 3; i++)
+        {
+            for (int k = 0; k < dimensions[0]; k++)
             {
-                count = true;
-                for (int i = 0; i < 3; i++)
-                {
-                    if (game_board[columns[move] + i, move + i + 1] != player)
-                    {
-                        count = false;
-                    }
-                }
-                if (count)
-                {
-                    if (thing)
-                    {
-                        Console.WriteLine("winner 4");
-                    }
-                    return 1;
-                }
+                pieces[0] = game_board[i, k];
+                pieces[1] = game_board[i + 1, k];
+                pieces[2] = game_board[i + 2, k];
+                pieces[3] = game_board[i + 3, k];
+                score += score_window(pieces);
             }
-            if (column_height < dimensions[0] - 2 && move >= 3) //up n left
-            {
-                count = true;
-                for (int i = 0; i < 3; i++)
-                {
-                    if (game_board[columns[move] + i, move - i - 1] != player)
-                    { count = false; }
-                }
-                if (count)
-                {
-                    if (thing)
-                    {
-                        Console.WriteLine("winner 5");
-                    }
-                    return 1;
-                }
-            }
+        }
+        return score;
+    }
 
-            if (move >= 3) //straight left
-            {
-                count = true;
-                for (int i = 0; i < 3; i++)
-                {
-
-                    if (game_board[columns[move] - 1, move - i - 1] != player)
-                    { count = false; }
-                }
-                if (count)
-                {
-                    if (thing)
-                    {
-                        Console.WriteLine("winner 6");
-                    }
-                    return 1;
-                }
-            }
-
-            if (move <= dimensions[1] - 4) //straight Right
-            {
-                count = true;
-                for (int i = 0; i < 3; i++)
-                {
-                    if (game_board[columns[move] - 1, move + i + 1] != player)
-                    {
-                        count = false;
-                    }
-                }
-                if (count)
-                {
-                    if (thing)
-                    {
-                        Console.WriteLine("winner 7");
-                    }
-                    return 1;
-                }
-            }
-            return -1;
-
-        }*/
-
+    public float score_window(string[] window)
+    {
+        string[] pieces = window;
+        int player_2;
+        int player_1;
+        int neutral_pieces;
+        float score = 0;
+        player_2 = pieces.Count(s => s == "2");
+        player_1 = pieces.Count(s => s == "1");
+        neutral_pieces = pieces.Count(s => s == " ");
+        if (player_2 == 3 && player_1 == 0)
+        {
+            score += 9;
+        }
+        else if (player_2 == 2 && player_1 == 0)
+        {
+            score += 3;
+        }
+        else if (player_2 == 1 && player_1 == 0)
+        {
+            score += 1;
+        }
+        if (player_1 == 3 && player_2 == 0)
+        {
+            score -= 9;
+        }
+        else if (player_1 == 2 && player_2 == 0)
+        {
+            score -= 3;
+        }
+        else if (player_1 == 1 && player_2 == 0)
+        {
+            score -= 1;
+        }
+        return score;
+    }
 }

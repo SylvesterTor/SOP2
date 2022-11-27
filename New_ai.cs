@@ -8,7 +8,6 @@ class New_ai
     Stopwatch stopwatch = new Stopwatch();
     public int make_move(Board game, int x) //controls what move the AI is to make
     {
-        stopwatch.Start();
         int best_move = 0; //best move
         float score; //score of a given move
         float best_score = -100000; //Best score, maximizer optimmaly starts at negtive infinity 
@@ -26,8 +25,8 @@ class New_ai
                 game.add_move(i, "2"); //ad new potential move
                 Boolean isTerminal = 1 == game.check_game_2_0("2"); //Check if is a terminal node in gametree, it is, if it is a winning move
                 score = minimax(game, i, x, "1", isTerminal); //score the potential move, using the minimax function
-                Console.Write("move:  " + i);
-                Console.WriteLine("  score: " + score);
+                //Console.Write("move:  " + i);
+                //Console.WriteLine("  score: " + score);
                 game.remove_move(i, "2"); //remove the move from active play.
                 //if score is better than best_score make it the new best score. And define the new best_move
                 if (score > best_score)
@@ -47,10 +46,6 @@ class New_ai
                 }
             }
         }
-        stopwatch.Stop();
-        TimeSpan ts = stopwatch.Elapsed;
-        Console.WriteLine("Elapsed Time is {0:00}:{1:00}:{2:00}.{3}",
-                        ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
         return best_move;
     }
 
@@ -59,7 +54,7 @@ class New_ai
         //If depth has reached zero, or the state of the game is a leave on gametree, then evalute the current game_state
         if (depth == 0 || isTerminal)
         {
-            return eval_table(game_board, move, isTerminal) * depth+1;
+            return eval_table(game_board, move, isTerminal) * (depth+1);
         }
 
         if (player == "1")
@@ -114,7 +109,7 @@ class New_ai
         }
         else
         { //the heuristics for the game
-            score = 0;
+            score = game.analyze_board();
         }
         return score;
     }
